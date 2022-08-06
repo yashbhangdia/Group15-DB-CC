@@ -2,7 +2,10 @@ package com.db.grad.javaapi.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,39 +14,45 @@ import javax.persistence.Table;
 public class Trade {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	private long bookId;
-	private long counterpartyId;
-	private long securityId;
+	
+	@Column(name="quantity")
 	private long quantity;
+	
+	@Column(name="status")
 	private String status;
+	
+	@Column(name="price")
 	private long price;
+	
+	@Column(name="buy_sell")
 	private String buy_sell;
+	
+	@Column(name="trade_date")
 	private Date tradeDate;
+	
+	@Column(name="settlement_date")
 	private Date settlementDate;
+	
+	public Trade() {
+		
+	}
+	
+	public Trade(long quantity, String status, long price, String buy_sell, Date tradeDate, Date settlementDate) {
+		super();
+		this.quantity = quantity;
+		this.status = status;
+		this.price = price;
+		this.buy_sell = buy_sell;
+		this.tradeDate = tradeDate;
+		this.settlementDate = settlementDate;
+	}
 	public long getId() {
 		return id;
 	}
 	public void setId(long id) {
 		this.id = id;
-	}
-	public long getBookId() {
-		return bookId;
-	}
-	public void setBookId(long bookId) {
-		this.bookId = bookId;
-	}
-	public long getCounterpartyId() {
-		return counterpartyId;
-	}
-	public void setCounterpartyId(long counterpartyId) {
-		this.counterpartyId = counterpartyId;
-	}
-	public long getSecurityId() {
-		return securityId;
-	}
-	public void setSecurityId(long securityId) {
-		this.securityId = securityId;
 	}
 	public long getQuantity() {
 		return quantity;

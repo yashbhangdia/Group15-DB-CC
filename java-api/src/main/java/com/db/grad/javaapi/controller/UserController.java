@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User createDog(@Valid @RequestBody User user) {
+    public User createUser(@Valid @RequestBody User user) {
         return userRepository.saveAndFlush(user);
     }
 

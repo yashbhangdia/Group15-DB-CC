@@ -1,9 +1,17 @@
 package com.db.grad.javaapi.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -11,15 +19,53 @@ import javax.persistence.Table;
 public class Security {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
+	
+	@Column(name="inis")
 	private String inis;
+	
+	@Column(name="cusip")
 	private String cusip;
+	
+	@Column(name="issuer")
 	private String issuer;
+	
+	@Column(name="maturity_date")
 	private Date maturityDate;
+	
+	@Column(name="coupon")
 	private String coupon;
+	
+	@Column(name="type")
 	private String type;
+	
+	@Column(name="face_value")
 	private long faceValue;
+	
+	@Column(name="status")
 	private String status;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "security_fid", referencedColumnName="id")
+	List<Trade> trades = new ArrayList<>();
+	
+	public Security() {
+		
+	}
+	
+	public Security(String inis, String cusip, String issuer, Date maturityDate, String coupon, String type,
+			long faceValue, String status) {
+		super();
+		this.inis = inis;
+		this.cusip = cusip;
+		this.issuer = issuer;
+		this.maturityDate = maturityDate;
+		this.coupon = coupon;
+		this.type = type;
+		this.faceValue = faceValue;
+		this.status = status;
+	}
 	public long getId() {
 		return id;
 	}
@@ -73,6 +119,12 @@ public class Security {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public List<Trade> getTrades() {
+		return trades;
+	}
+	public void setTrades(List<Trade> trades) {
+		this.trades = trades;
 	}
 	
 }
