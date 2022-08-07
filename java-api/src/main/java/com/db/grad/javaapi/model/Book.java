@@ -40,9 +40,13 @@ public class Book {
 	@JoinColumn(name = "book_fid", referencedColumnName="id")
 	List<Trade> trades = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "book_id", referencedColumnName="id")
-	private Set<Book_user> book_users = new HashSet<>();
+	@ManyToMany
+    @JoinTable(
+        name="book_user",
+        joinColumns=@JoinColumn(name="book_id"),
+        inverseJoinColumns=@JoinColumn(name="user_id")
+    )
+    Set<User> users;
 	
 	public Book() {
 
@@ -82,12 +86,12 @@ public class Book {
 		this.lastUpdatedAt = lastUpdatedAt;
 	}
 
-	public Set<Book_user> getUsers() {
-		return book_users;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUsers(Set<Book_user> book_users) {
-		this.book_users = book_users;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
 
 	public List<Trade> getTrades() {

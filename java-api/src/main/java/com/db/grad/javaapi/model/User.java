@@ -11,9 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -32,50 +35,71 @@ public class User {
 	@Column(name="role")
 	private String role;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id", referencedColumnName="id")
-	private Set<Book_user> book_users = new HashSet<>();
+	@JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name="book_user",
+            joinColumns=@JoinColumn(name="user_id"),
+            inverseJoinColumns=@JoinColumn(name="book_id")
+        )
+    Set<Book> books;
+
 	
-	public User() {
-		
-	}
-	
-	public User(String name, String email, String role) {
+	public User(long id, String name, String email, String role, Set<Book> books) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.role = role;
+		this.books = books;
 	}
-	public String getName() {
-		return name;
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getEmail() {
-		return email;
+
+	public String getName() {
+		return name;
 	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<Book_user> getBooks() {
-		return book_users;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setBooks(Set<Book_user> book_users) {
-		this.book_users = book_users;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public Set<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<Book> books) {
+		this.books = books;
+	}
+	
+	
 	
 	
 }
