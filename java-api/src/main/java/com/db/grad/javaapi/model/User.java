@@ -10,11 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 	
 	@Id
@@ -30,8 +32,9 @@ public class User {
 	@Column(name="role")
 	private String role;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="users")
-	private Set<Book> books = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id", referencedColumnName="id")
+	private Set<Book_user> book_users = new HashSet<>();
 	
 	public User() {
 		
@@ -67,11 +70,11 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Set<Book> getBooks() {
-		return books;
+	public Set<Book_user> getBooks() {
+		return book_users;
 	}
-	public void setBooks(Set<Book> books) {
-		this.books = books;
+	public void setBooks(Set<Book_user> book_users) {
+		this.book_users = book_users;
 	}
 	
 	

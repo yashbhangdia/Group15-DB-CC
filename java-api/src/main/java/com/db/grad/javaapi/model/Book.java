@@ -31,7 +31,7 @@ public class Book {
 	private String BookName;
 	
 	@Column(name="created_at")
-	private Date createdAt = new Date();
+	private java.sql.Date createdAt = new java.sql.Date(System.currentTimeMillis());
 	
 	@Column(name="last_updated_at")
 	private Date lastUpdatedAt = new Date();
@@ -40,15 +40,12 @@ public class Book {
 	@JoinColumn(name = "book_fid", referencedColumnName="id")
 	List<Trade> trades = new ArrayList<>();
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name="book_user", 
-			   joinColumns = {@JoinColumn(name="book_id")},
-			   inverseJoinColumns = {@JoinColumn(name="user_id")}
-	)
-	private Set<User> users = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "book_id", referencedColumnName="id")
+	private Set<Book_user> book_users = new HashSet<>();
 	
 	public Book() {
-		
+
 	}
 	
 	public Book(String bookName) {
@@ -69,11 +66,11 @@ public class Book {
 		BookName = bookName;
 	}
 
-	public Date getCreatedAt() {
+	public java.sql.Date getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(java.sql.Date createdAt) {
 		this.createdAt = createdAt;
 	}
 
@@ -85,12 +82,12 @@ public class Book {
 		this.lastUpdatedAt = lastUpdatedAt;
 	}
 
-	public Set<User> getUsers() {
-		return users;
+	public Set<Book_user> getUsers() {
+		return book_users;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUsers(Set<Book_user> book_users) {
+		this.book_users = book_users;
 	}
 
 	public List<Trade> getTrades() {
