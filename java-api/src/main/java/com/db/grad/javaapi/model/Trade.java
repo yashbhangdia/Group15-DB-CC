@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,12 +37,27 @@ public class Trade {
 	@Column(name="settlement_date")
 	private Date settlementDate;
 	
+	@ManyToOne()
+	@JoinColumn(name="book_id", referencedColumnName="id")
+	private Book book;
+	
+	@ManyToOne()
+	@JoinColumn(name="security_id", referencedColumnName="id")
+	private Security security;
+	
+	@ManyToOne()
+	@JoinColumn(name="counterparty_id", referencedColumnName="id")
+	private Counterparty counterparty;
+	
 	public Trade() {
 		
 	}
 	
-	public Trade(long quantity, String status, long price, String buy_sell, Date tradeDate, Date settlementDate) {
+	
+	public Trade(long id, long quantity, String status, long price, String buy_sell, Date tradeDate,
+			Date settlementDate) {
 		super();
+		this.id = id;
 		this.quantity = quantity;
 		this.status = status;
 		this.price = price;
@@ -48,6 +65,8 @@ public class Trade {
 		this.tradeDate = tradeDate;
 		this.settlementDate = settlementDate;
 	}
+
+
 	public long getId() {
 		return id;
 	}
@@ -89,6 +108,30 @@ public class Trade {
 	}
 	public void setSettlementDate(Date settlementDate) {
 		this.settlementDate = settlementDate;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public Security getSecurity() {
+		return security;
+	}
+
+	public void setSecurity(Security security) {
+		this.security = security;
+	}
+
+	public Counterparty getCounterparty() {
+		return counterparty;
+	}
+
+	public void setCounterparty(Counterparty counterparty) {
+		this.counterparty = counterparty;
 	}
 	
 	

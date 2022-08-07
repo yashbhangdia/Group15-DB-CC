@@ -35,23 +35,15 @@ public class User {
 	@Column(name="role")
 	private String role;
 	
-	@JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name="book_user",
-            joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="book_id")
-        )
-    Set<Book> books;
+    
 
 	
-	public User(long id, String name, String email, String role, Set<Book> books) {
+	public User(long id, String name, String email, String role) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.role = role;
-		this.books = books;
 	}
 
 	public User() {
@@ -91,15 +83,5 @@ public class User {
 		this.role = role;
 	}
 
-	public Set<Book> getBooks() {
-		return books;
-	}
-
-	public void setBooks(Set<Book> books) {
-		this.books = books;
-	}
-	
-	
-	
 	
 }

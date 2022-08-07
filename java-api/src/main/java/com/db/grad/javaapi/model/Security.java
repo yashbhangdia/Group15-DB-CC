@@ -1,17 +1,12 @@
 package com.db.grad.javaapi.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -45,10 +40,6 @@ public class Security {
 	
 	@Column(name="status")
 	private String status;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "security_fid", referencedColumnName="id")
-	List<Trade> trades = new ArrayList<>();
 	
 	public Security() {
 		
@@ -119,12 +110,6 @@ public class Security {
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public List<Trade> getTrades() {
-		return trades;
-	}
-	public void setTrades(List<Trade> trades) {
-		this.trades = trades;
 	}
 	
 }
