@@ -1,6 +1,11 @@
 import { ValidationEnum } from "../config/enums/ValidationEnum";
-
-export const LoginValidation = {
+export const UserValidation = {
+  name: [
+    {
+      type: ValidationEnum.REQUIRED,
+      message: "Name is required.",
+    },
+  ],
   email: [
     {
       type: ValidationEnum.REQUIRED,
@@ -14,10 +19,10 @@ export const LoginValidation = {
       message: "Invalid email.",
     },
   ],
-  password: [
+  role: [
     {
       type: ValidationEnum.REQUIRED,
-      message: "Password is required.",
+      message: "Role is required.",
     },
   ],
 };

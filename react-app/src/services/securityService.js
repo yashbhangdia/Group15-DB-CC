@@ -22,5 +22,5 @@ export const updateSecurity = (tradeId, data) => {
 
 export const deleteSecurity = (tradeId) => {
   const url = `${securityURL}/${tradeId}`;
-  return Axios.delete(url, data);
+  return Axios.delete(url);
 };

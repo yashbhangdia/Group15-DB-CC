@@ -22,5 +22,5 @@ export const updateTrade = (tradeId, data) => {
 
 export const deleteTrade = (tradeId) => {
   const url = `${tradeURL}/${tradeId}`;
-  return Axios.delete(url, data);
+  return Axios.delete(url);
 };

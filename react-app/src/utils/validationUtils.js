@@ -38,7 +38,7 @@ var validationFunctions = {
    */
   Required: (value) => {
     return (
-      value !== undefined && value !== null && value.toString().trim() !== ''
+      value !== undefined && value !== null && value.toString().trim() !== ""
     );
   },
 
@@ -75,21 +75,21 @@ var validationFunctions = {
    */
   Relop: (value, comparisonValue, relop) => {
     switch (relop) {
-      case '<':
+      case "<":
         return value < comparisonValue;
-      case '<=':
+      case "<=":
         return value <= comparisonValue;
-      case '>':
+      case ">":
         return value > comparisonValue;
-      case '>=':
+      case ">=":
         return value >= comparisonValue;
-      case '!=':
+      case "!=":
         return value != comparisonValue;
-      case '==':
+      case "==":
         return value == comparisonValue;
-      case '&&':
+      case "&&":
         return value && comparisonValue;
-      case '||':
+      case "||":
         return value || comparisonValue;
       default:
         return true;
@@ -104,8 +104,8 @@ var validationFunctions = {
    */
   checkFieldValidity: (value, validations) => {
     let isValid = true,
-      errorText = '';
-    if (typeof value === 'object') {
+      errorText = "";
+    if (typeof value === "object") {
       if (Array.isArray(value)) {
         isValid = value.reduce(
           (acc, eleVal) =>
