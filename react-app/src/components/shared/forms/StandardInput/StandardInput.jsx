@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import validationUtils from '@/utils/validationUtils';
+import validationUtils from '../../../../utils/validationUtils';
 import './standard-input.scss';
 
 class StandardInput extends Component {

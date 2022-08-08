@@ -15,7 +15,7 @@ import ManageUsers from "./pages/ManageUsers";
 import { RequireAuth, OnlyPublicAuth } from "./base/RequireAuth";
 import Loading from "./base/Loading/Loading";
 
-import * as authService from "./services/authService";
+import * as authService from "./services/AuthService";
 
 function AppRoutes() {
   const [loading, setLoading] = useState(true);

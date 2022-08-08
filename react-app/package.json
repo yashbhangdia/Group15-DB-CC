@@ -16,6 +16,7 @@
     "react-pro-sidebar": "^0.7.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
+    "react-select": "^5.4.0",
     "react-testing-library": "^8.0.1",
     "react-toastify": "^9.0.8",
     "sass": "^1.35.2",
