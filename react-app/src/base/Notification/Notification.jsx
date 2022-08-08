@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const options = {
   position: toast.POSITION.TOP_RIGHT,

@@ -1,0 +1,10 @@
+@import "../../../styles/variables.scss";
+
+.confirmation-popup {
+  .modal-header {
+    border: 0;
+    .modal-title {
+      font-weight: 600;
+    }
+  }
+}
