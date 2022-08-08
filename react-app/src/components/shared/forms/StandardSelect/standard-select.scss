@@ -1,0 +1,30 @@
+@import "../../../../styles/variables.scss";
+
+.standard-select {
+  text-align: left;
+  .css-1okebmr-indicatorSeparator {
+    display: none;
+  }
+  .css-tlfecz-indicatorContainer {
+    color: $primary;
+  }
+  .css-319lph-ValueContainer {
+    padding-left: 0;
+  }
+  .css-14el2xx-placeholder {
+    margin-left: 0;
+  }
+  .select-box {
+    border-bottom: $base-border;
+  }
+  input {
+    ::placeholder {
+      color: $base-hint;
+    }
+  }
+
+  .error-text {
+    font-size: 0.75rem;
+    color: $base-danger;
+  }
+}
