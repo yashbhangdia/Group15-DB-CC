@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useBoolean } from "../../base/hooks";
 import { DASHBOARD } from "../../config/routeUrls";
-import * as authService from "../../services/AuthService";
+import * as authService from "../../services/authService";
 import StandardButton from "../shared/forms/StandardButton/StandardButton";
 
 const Login = () => {
