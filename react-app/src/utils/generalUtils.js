@@ -22,6 +22,19 @@ export function removeFromObject(object, keys) {
   return object;
 }
 
+export function removeFalsyValuesFromObject(object) {
+  for (let key of Object.keys(object)) {
+    if (
+      object[key] === undefined ||
+      object[key] === null ||
+      object[key] === ""
+    ) {
+      delete object[key];
+    }
+  }
+  return object;
+}
+
 export function kNeighborsOfIndex(arr, index, k = 5) {
   let dl = index,
     ul = arr.length - index - 1;

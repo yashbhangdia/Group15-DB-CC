@@ -1,10 +1,9 @@
-import { hostNameUrl } from "../config/api";
-import axios from "axios";
+import Axios from "./apiCalls";
 import { setCookie } from "../utils/cookieUtils";
 import { ACCESS_TOKEN } from "../config/enums/misc";
 
 export const findMe = () => {
-  return axios.get(`${hostNameUrl}/me`);
+  return Axios.get(`/me`);
 };
 
 export const login = () => {
