@@ -1,8 +1,16 @@
 import React from "react";
-import { Pets } from "./components/pets/Pets";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./routes";
+import "./styles/main.scss";
 
 const App = () => {
-  return <Pets />;
+  return (
+    <Router>
+      <main className="h-100">
+        <AppRoutes />
+      </main>
+    </Router>
+  );
 };
 
 export default App;
