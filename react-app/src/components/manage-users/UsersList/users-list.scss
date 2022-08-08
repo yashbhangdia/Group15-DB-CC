@@ -1,0 +1,13 @@
+@import "../../../styles/main.scss";
+
+.users-list {
+  .user-table {
+    thead {
+      background-color: $primary;
+      color: white;
+    }
+    .actions {
+      width: 15%;
+    }
+  }
+}

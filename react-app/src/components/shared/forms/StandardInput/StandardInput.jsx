@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import validationUtils from '@/utils/validationUtils';
-import './standard-input.scss';
+import React, { Component } from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import validationUtils from "../../../../utils/validationUtils";
+import "./standard-input.scss";
 
 class StandardInput extends Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class StandardInput extends Component {
     this.state = {
       inputId: this.props.id,
       valid: false,
-      errorText: '',
+      errorText: "",
       dirty: false,
       showPassword: false,
     };
@@ -21,7 +21,7 @@ class StandardInput extends Component {
 
   getStandardInputClasses() {
     const { disabled, className } = this.props;
-    return classNames('standard-input', 'position-relative', {
+    return classNames("standard-input", "position-relative", {
       disabled: disabled,
       [className]: className,
       error: (this.state.dirty || this.props.showError) && !this.state.valid,
@@ -30,11 +30,11 @@ class StandardInput extends Component {
 
   getInputClassName = () => {
     const { inputClasses } = this.props;
-    return classNames('form-control', {
+    return classNames("form-control", {
       error: (this.state.dirty && !this.state.valid) || this.props.showError,
       [inputClasses]: inputClasses,
-      'has-feedback': this.props.type === 'password',
-      'after-icon': this.props.afterIcon,
+      "has-feedback": this.props.type === "password",
+      "after-icon": this.props.afterIcon,
     });
   };
 
@@ -52,7 +52,7 @@ class StandardInput extends Component {
     const { helpText } = this.props;
 
     if (helpText) {
-      return <p className='help-text mb-0 mt-2'>{helpText}</p>;
+      return <p className="help-text mb-0 mt-2">{helpText}</p>;
     }
     return null;
   };
@@ -60,7 +60,7 @@ class StandardInput extends Component {
   renderError = () => {
     const { errorText } = this.state;
     if (errorText && (this.state.dirty || this.props.showError)) {
-      return <p className='error-text mb-0 mt-2'>{errorText}</p>;
+      return <p className="error-text mb-0 mt-2">{errorText}</p>;
     }
     return null;
   };
@@ -94,7 +94,7 @@ class StandardInput extends Component {
   };
 
   getPasswordIcon = () => {
-    return this.state.showPassword ? 'visibility_off' : 'visibility';
+    return this.state.showPassword ? "visibility_off" : "visibility";
   };
 
   onBlur = () => {
@@ -122,7 +122,7 @@ class StandardInput extends Component {
         {this.renderLabel()}
         <input
           {...this.props.inputProps}
-          type={showPassword ? 'text' : type}
+          type={showPassword ? "text" : type}
           className={this.getInputClassName()}
           id={inputId}
           placeholder={placeholder}
@@ -135,20 +135,20 @@ class StandardInput extends Component {
           onBlur={this.onBlur}
         />
         {this.props.icon ? (
-          <label className='icon-text' htmlFor={inputId}>
+          <label className="icon-text" htmlFor={inputId}>
             {this.props.icon}
           </label>
         ) : null}
 
         {this.props.afterIcon ? (
-          <label className='icon-text after' htmlFor={inputId}>
+          <label className="icon-text after" htmlFor={inputId}>
             {this.props.afterIcon}
           </label>
         ) : null}
 
-        {this.props.type === 'password' ? (
-          <div className='icon' onClick={this.toggleShowPassword}>
-            <span className='material-icons'>{this.getPasswordIcon()}</span>
+        {this.props.type === "password" ? (
+          <div className="icon" onClick={this.toggleShowPassword}>
+            <span className="material-icons">{this.getPasswordIcon()}</span>
           </div>
         ) : null}
 
@@ -179,11 +179,11 @@ StandardInput.propTypes = {
 };
 
 StandardInput.defaultProps = {
-  type: 'text',
+  type: "text",
   disabled: false,
   error: false,
-  placeholder: '',
-  value: '',
+  placeholder: "",
+  value: "",
   overloadValidity: false,
   inputProps: {},
 };
