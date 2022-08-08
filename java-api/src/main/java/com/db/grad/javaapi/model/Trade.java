@@ -54,10 +54,9 @@ public class Trade {
 	}
 	
 	
-	public Trade(long id, long quantity, String status, long price, String buy_sell, Date tradeDate,
+	public Trade(long quantity, String status, long price, String buy_sell, Date tradeDate,
 			Date settlementDate) {
 		super();
-		this.id = id;
 		this.quantity = quantity;
 		this.status = status;
 		this.price = price;

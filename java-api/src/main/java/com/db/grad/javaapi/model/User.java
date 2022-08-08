@@ -10,13 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -34,9 +30,6 @@ public class User {
 	
 	@Column(name="role")
 	private String role;
-	
-    
-
 	
 	public User(long id, String name, String email, String role) {
 		super();
@@ -82,6 +75,5 @@ public class User {
 	public void setRole(String role) {
 		this.role = role;
 	}
-
 	
 }

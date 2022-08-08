@@ -45,9 +45,10 @@ public class Security {
 		
 	}
 	
-	public Security(String inis, String cusip, String issuer, Date maturityDate, String coupon, String type,
+	public Security(long id, String inis, String cusip, String issuer, Date maturityDate, String coupon, String type,
 			long faceValue, String status) {
 		super();
+		this.id = id;
 		this.inis = inis;
 		this.cusip = cusip;
 		this.issuer = issuer;

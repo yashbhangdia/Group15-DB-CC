@@ -1,12 +1,19 @@
 package com.db.grad.javaapi.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +32,7 @@ public class Book {
 	
 	@Column(name="last_updated_at")
 	private Date lastUpdatedAt = new Date();
+	
 	
 	public Book() {
 
@@ -63,5 +71,4 @@ public class Book {
 	public void setLastUpdatedAt(Date lastUpdatedAt) {
 		this.lastUpdatedAt = lastUpdatedAt;
 	}
-
 }
