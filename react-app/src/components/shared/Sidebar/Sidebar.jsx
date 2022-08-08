@@ -42,7 +42,7 @@ const Sidebar = ({ sidebarVisible, toggleSidebar }) => {
     >
       <SidebarHeader className="text-center">
         <Link to={DASHBOARD}>
-          <img src="/assets/images/logo.png" alt="logo" className="m-auto" />
+          <img src="https://www.timecamp.com/blog/wp-content/uploads/2019/03/How-does-employee-monitoring-software-work_.png" height='100rem' width='200rem'  alt="logo" className="m-auto" />
         </Link>
       </SidebarHeader>
       <SidebarContent>

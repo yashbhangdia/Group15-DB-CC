@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row';
 
 const Search = (props) => {
 
-    const [searchVal, setSearchValue] = useState('');
+    const [searchVal, setSearchValue] = useState(props.searchVal ? props.searchVal : "");
 
     const onSubmit = (search) => {
         props.handleSearch(search);   
@@ -14,13 +14,13 @@ const Search = (props) => {
 
     return (
         <div id="app" className='mb-3' >
-            <form onSubmit={()=>{ onSubmit(searchVal); }}>
+            <form >
                 <Row>
                     <Col md={9}>
                     <StandardInput id={'searchInput'} value={searchVal} placeholder={'Search'} onChange={(e)=>{setSearchValue(e.target.value)}} />
                     </Col>
                     <Col md={2} style={{padding:'0px'}}>
-                    <StandardButton text={'Search'} border={true} className='btn-md' style={{backgroundColor:"#0d21a1", color:"white"}}/>
+                    <StandardButton onClick={()=>{ onSubmit(searchVal); }} text={'Search'} border={true} className='btn-md' style={{backgroundColor:"#0d21a1", color:"white"}}/>
                     </Col>
                 </Row>
             </form>

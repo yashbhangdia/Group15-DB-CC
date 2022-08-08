@@ -1,13 +1,13 @@
 import React from 'react'
-
-
-const options = [
-  { value: 'One', label: 'One' }
-]
+import Select from 'react-select';
 
 const Autocomplete = (props) => {
   return (
-        <p>Search Bar / Autocomplete</p>
+        <div id="autocomplete" style={{minWidth:'20rem'}} >
+          <Select options={props.options} 
+            defaultValue={props.selectedBook!=null ? props.selectedBook : props.options[0]} 
+            onChange={(e)=>{ props.handleBookFilter(e.value) }}/>
+        </div>
     );
 } 
 
