@@ -18,6 +18,7 @@ import {
   NEW_SECURITY,
   SINGLE_SECURITY,
   BOOKS,
+  MANAGE_SECURITIES,
 } from "../../../config/routeUrls";
 import "./sidebar.scss";
 
@@ -65,6 +66,9 @@ const Sidebar = ({ sidebarVisible, toggleSidebar }) => {
           </MenuItem>
           <MenuItem active={SECURITY_MATCH}>
             <Link to={SECURITIES}>Securities</Link>
+          </MenuItem>
+          <MenuItem active={matchPath(MANAGE_SECURITIES, location.pathname)}>
+            <Link to={MANAGE_SECURITIES}>Manage Securities</Link>
           </MenuItem>
         </Menu>
       </SidebarContent>
