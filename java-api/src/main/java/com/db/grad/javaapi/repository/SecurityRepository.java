@@ -25,6 +25,6 @@ public interface SecurityRepository extends JpaRepository<Security, Long>{
 	@Query(value="SELECT * FROM security s where s.isin=:isin", nativeQuery=true)
 	List<Security> AnalyseByINIS(String isin);
 
-	@Query(value="SELECT s FROM security s WHERE CONCAT(s.isin,' ', s.cusip,' ', s.issuer,' ', s.coupon,' ', s.type,' ', s.status) LIKE %?keyword%", nativeQuery=true)
+	@Query(value="SELECT s FROM security s WHERE CONCAT(s.isin,' ', s.cusip,' ', s.issuer,' ', s.coupon,' ', s.type,' ', s.status) LIKE %?1%", nativeQuery=true)
 	List<Security> AnalyseByKeyword(String keyword);
 }
