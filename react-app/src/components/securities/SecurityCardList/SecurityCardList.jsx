@@ -21,7 +21,7 @@ const SecurityCardList = () => {
   const [tradeDetails, setTradeDetails] = useState([]);
 
   const getSecurities = async () => {
-    let filters = { search: searchText };
+    let filters = { search: debouncedSearchText, book: selectedBook };
     try {
       setLoading.on();
       const securs = await securityService.getSecurities(filters);
@@ -64,7 +64,7 @@ const SecurityCardList = () => {
 
   useEffect(() => {
     getSecurities();
-  }, [debouncedSearchText]);
+  }, [debouncedSearchText, selectedBook]);
 
   return (
     <div className="security-card-list">

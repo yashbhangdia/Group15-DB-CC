@@ -17,7 +17,7 @@ import Books from "./pages/Books";
 import { RequireAuth, OnlyPublicAuth } from "./base/RequireAuth";
 import Loading from "./base/Loading/Loading";
 
-import * as authService from "./services/AuthService.js";
+import * as authService from "./services/authService.js";
 
 function AppRoutes() {
   const [loading, setLoading] = useState(true);
