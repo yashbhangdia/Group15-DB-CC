@@ -27,16 +27,17 @@ import com.db.grad.javaapi.model.Security;
 import com.db.grad.javaapi.model.Trade;
 import com.db.grad.javaapi.repository.SecurityRepository;
 import com.db.grad.javaapi.repository.TradeRepository;
+import com.db.grad.javaapi.service.SecurityService;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1")
-public class ServiceController {
+public class SecurityController {
 	@Autowired
 	private SecurityRepository securityRepository;
 	
 	@Autowired 
-	private TradeRepository tradeRepository;
+	private SecurityService ss;
 	
 	@GetMapping("/securities")
 	public List<Security> getAllSecurities(){
@@ -92,6 +93,8 @@ public class ServiceController {
     	return ResponseEntity.ok().body(securities);
     }
     
+    
+    
     @GetMapping("/securities/bookNameAndISIN")
     public ResponseEntity<List<Security>> AnalyseByBookNameINIS(@Param("issuer") String issuer, @Param("isin") String isin){
     	List<Security> securities = securityRepository.AnalyseByBookNameINIS(issuer, isin);
@@ -101,6 +104,13 @@ public class ServiceController {
     @GetMapping("/securities/isin")
     public ResponseEntity<List<Security>> AnalyseByINIS(@Param("isin") String isin){
     	List<Security> securities = securityRepository.AnalyseByINIS(isin);
+    	return ResponseEntity.ok().body(securities);
+    }
+    
+    //search by any keyword
+    @RequestMapping("/securities/search")
+    public ResponseEntity<List<Security>> AnalyseByKeyword(@Param("keyword") String keyword){
+    	List<Security> securities = ss.listAll(keyword);
     	return ResponseEntity.ok().body(securities);
     }
     

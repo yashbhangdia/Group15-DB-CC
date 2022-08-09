@@ -1,6 +1,7 @@
 package com.db.grad.javaapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.db.grad.javaapi.exception.ResourceNotFoundException;
+import com.db.grad.javaapi.model.Book;
+import com.db.grad.javaapi.model.Trade;
 import com.db.grad.javaapi.model.User;
+import com.db.grad.javaapi.repository.BookRepository;
 import com.db.grad.javaapi.repository.UserRepository;
 
 import java.util.HashMap;
@@ -31,13 +35,16 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private BookRepository bookRepository;
+	
 	@GetMapping("/users")
 	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
 	
 	@GetMapping("/users/{id}")
-    public ResponseEntity<User> getEmployeeById(@PathVariable(value = "id") Long id)
+    public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long id)
     throws ResourceNotFoundException {
         User user = userRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
@@ -74,5 +81,13 @@ public class UserController {
         return response;
     }
 	
+    
+    //Get the books with the associated user id
+    @GetMapping("/user/books")
+    public ResponseEntity<List<Book>> getBookByUserId(@Param("id") Long id) 
+    	    throws ResourceNotFoundException { 
+    	    	List<Book> book = bookRepository.AnalyseByUserId(id); 
+    	    	return ResponseEntity.ok().body(book); 
+   }
 	
 }

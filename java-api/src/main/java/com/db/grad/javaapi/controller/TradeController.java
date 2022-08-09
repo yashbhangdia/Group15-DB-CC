@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.db.grad.javaapi.exception.ResourceNotFoundException;
+import com.db.grad.javaapi.model.Security;
 import com.db.grad.javaapi.model.Trade;
 import com.db.grad.javaapi.repository.TradeRepository;
 
@@ -63,6 +64,9 @@ public class TradeController {
     	getTrade.setSettlementDate(tradeDetails.getSettlementDate());
     	getTrade.setStatus(tradeDetails.getStatus());
     	getTrade.setTradeDate(tradeDetails.getTradeDate());
+    	getTrade.setBook(tradeDetails.getBook());
+    	getTrade.setSecurity(tradeDetails.getSecurity());
+    	getTrade.setCounterparty(tradeDetails.getCounterparty());
 
         final Trade updatedTrade = traderepository.save(getTrade);
         return ResponseEntity.ok(updatedTrade);
@@ -80,11 +84,21 @@ public class TradeController {
         return response;
     }
     
+    
+    //see all the trades of a particular security
     @GetMapping("/security/{id}/trades") 
     public ResponseEntity<List<Trade>> getTradeBySecurityId(@PathVariable(value = "id") Long id) 
     throws ResourceNotFoundException { 
     	List<Trade> trade = traderepository.AnalyseBySecurityId(id); 
     	return ResponseEntity.ok().body(trade); }
+    
+    //see all the trades search by the bookname/issuer
+    @GetMapping("/trades/bookname")
+    public ResponseEntity<List<Trade>> AnalyseByBookName(@Param("issuer") String issuer){
+    	List<Trade> trade = traderepository.AnalyseByBookName(issuer);
+    	return ResponseEntity.ok().body(trade);
+    }
+    
     
 //    @GetMapping("/trade/search/securityid")
 //    public String AnalyseBySecurityId(@Param("value") long value, Model model) {
