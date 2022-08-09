@@ -1,0 +1,18 @@
+.security-card-list {
+  .security-details {
+    ul {
+      list-style: none;
+      display: table;
+      padding: 0px !important;
+    }
+
+    li {
+      display: table-row;
+    }
+
+    b {
+      display: table-cell;
+      padding-right: 1em;
+    }
+  }
+}
