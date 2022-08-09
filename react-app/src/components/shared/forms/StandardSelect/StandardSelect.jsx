@@ -86,12 +86,7 @@ class StandardSelect extends Component {
         ...base,
         minWidth: "200px",
         height: "3rem",
-        borderRadius: "0px",
-        border: "unset",
-        boxShadow: "unset",
-        borderBottom: `1px solid ${colors["base-border"]}`,
-        paddingLeft: "0px",
-        background: "transparent",
+        padding: "0rem 1rem",
         cursor: "pointer",
         borderColor:
           (this.state.dirty || this.props.showError) && !this.state.valid
@@ -128,7 +123,7 @@ class StandardSelect extends Component {
           },
         };
       },
-      input: (styles) => ({ ...styles, border: "unset" }),
+      input: (styles) => ({ ...styles }),
     };
     const { props } = this;
     const style = classNames("standard-select", {
