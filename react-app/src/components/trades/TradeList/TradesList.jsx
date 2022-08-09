@@ -25,9 +25,98 @@ const TradesList = () => {
 
   useEffect(() => {
     setTrades ( [
-      {id:"1",isin:"12",issuer:"asdf",maturityDate:"22/8/22",type:"asset",status:"active"},
-      {id:"2",isin:"13",issuer:"qwe",maturityDate:"21/8/22",type:"instrument",status:"failed"},
-      {id:"3",isin:"14",issuer:"zxc",maturityDate:"20/8/22",type:"asset",status:"active"}
+        
+            {
+                "id": 1,
+                "quantity": 2,
+                "status": "active",
+                "price": 300,
+                "buy_sell": "sell",
+                "tradeDate": "2020-09-18T18:30:00.000+00:00",
+                "settlementDate": "2025-08-17T18:30:00.000+00:00",
+                "book": {
+                    "id": 101,
+                    "createdAt": "2022-08-06",
+                    "lastUpdatedAt": "2022-08-05T18:30:00.000+00:00",
+                    "bookName": "book1"
+                },
+                "security": {
+                    "id": 1003,
+                    "inis": "askhd234",
+                    "cusip": "shdg",
+                    "issuer": "tesla",
+                    "maturityDate": "2022-08-30T18:30:00.000+00:00",
+                    "coupon": "1003-c",
+                    "type": "asset",
+                    "faceValue": 3400,
+                    "status": "active"
+                },
+                "counterparty": {
+                    "id": 10002,
+                    "name": "XYZ"
+                }
+            },
+            {
+                "id": 2,
+                "quantity": 3,
+                "status": "active",
+                "price": 400,
+                "buy_sell": "buy",
+                "tradeDate": "2021-09-18T18:30:10.000+00:00",
+                "settlementDate": "2022-10-31T18:30:00.000+00:00",
+                "book": {
+                    "id": 102,
+                    "createdAt": "2022-08-05",
+                    "lastUpdatedAt": "2022-08-05T18:30:00.000+00:00",
+                    "bookName": "book2"
+                },
+                "security": {
+                    "id": 1001,
+                    "inis": "xyz123",
+                    "cusip": "abc",
+                    "issuer": "apple",
+                    "maturityDate": "2023-08-31T18:30:00.000+00:00",
+                    "coupon": "1001-a",
+                    "type": "asset",
+                    "faceValue": 1000,
+                    "status": "active"
+                },
+                "counterparty": {
+                    "id": 10001,
+                    "name": "ABC"
+                }
+            },
+            {
+                "id": 1000001,
+                "quantity": 1,
+                "status": "done",
+                "price": 200,
+                "buy_sell": "buy",
+                "tradeDate": "2020-08-18T18:30:00.000+00:00",
+                "settlementDate": "2020-08-17T18:30:00.000+00:00",
+                "book": {
+                    "id": 101,
+                    "createdAt": "2022-08-06",
+                    "lastUpdatedAt": "2022-08-05T18:30:00.000+00:00",
+                    "bookName": "book1"
+                },
+                "security": {
+                    "id": 1001,
+                    "inis": "xyz123",
+                    "cusip": "abc",
+                    "issuer": "apple",
+                    "maturityDate": "2023-08-31T18:30:00.000+00:00",
+                    "coupon": "1001-a",
+                    "type": "asset",
+                    "faceValue": 1000,
+                    "status": "active"
+                },
+                "counterparty": {
+                    "id": 10001,
+                    "name": "ABC"
+                }
+            }
+        
     ])
   });
 
@@ -55,25 +144,31 @@ const TradesList = () => {
       <Table hover bordered responsive className="trade-table">
         <thead>
           <tr>
-            <th>ISIN</th>
-            <th>Issuer</th>
-            <th>Maturity Date</th>
-            <th>Type</th>
-            <th>Status</th>
+            <th>Trade Id</th>
+            <th>Security ISIN</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Buy / Sell</th>
+            <th>Trade Date</th>
+            <th>Settlement Date</th>
+            <th>Counter Party</th>
           </tr>
         </thead>
         <tbody>
           {trades.map((trade) => (
             <>
             <tr key={trade.id} onClick = {()=>{
-              setModalData(trade) ; 
+              setModalData(trade.security) ; 
               showSecurity()
             }} style={{"cursor":"pointer"}}>
-              <td>{trade.isin}</td>
-              <td>{trade.issuer}</td>
-              <td>{trade.maturityDate}</td>
-              <td>{trade.type}</td>
-              <td>{trade.status}</td>
+              <td>{trade.id}</td>
+              <td>{trade.security.inis}</td>
+              <td>{trade.quantity}</td>
+              <td>{trade.price}</td>
+              <td>{trade.buy_sell}</td>
+              <td>{trade.tradeDate.split("T")[0]}</td>
+              <td>{trade.settlementDate.split("T")[0]}</td>
+              <td>{trade.counterparty.name}</td>
             </tr>  
           </>
           ))}
@@ -84,14 +179,14 @@ const TradesList = () => {
               <Modal.Title>Security</Modal.Title>
             </Modal.Header>
             <Modal.Body className="modalBody">
-              <ul  >
+              <ul>
                     <li><b>Maturity Date </b>: <span>{modalData.maturityDate}</span></li>
                     <li><b>Status </b>: <span>{modalData.status}</span></li>
                     <li><b>Type </b>:   <span>{modalData.type}</span></li>
                     <li><b>Issuer </b>: <span>{modalData.issuer}</span></li>
               </ul>
             </Modal.Body>
-          </Modal>
+    </Modal>
     </div>
   );
 };
