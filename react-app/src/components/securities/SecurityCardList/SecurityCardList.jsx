@@ -58,6 +58,14 @@ const SecurityCardList = () => {
     }
   };
 
+  function monthDiff(d1, d2) {
+    var months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+}
+
   useEffect(() => {
     getAssignedBooks();
   }, []);
@@ -96,7 +104,7 @@ const SecurityCardList = () => {
               onClick={() => getTradeDetails(security.id)}
               style={{ cursor: "pointer" }}
             >
-              <Card.Header style={{ textTransform: "capitalize" }}>
+              <Card.Header style={{ textTransform: "capitalize", backgroundColor: new Date(security.maturityDate) < new Date() ? '#F94C66' : ( monthDiff(new Date(), new Date(security.maturityDate))<=1 ? '#FFC54D' : '#53BF9D'), color:'white'}}>
                 {security.type}
               </Card.Header>
               <Card.Body>
