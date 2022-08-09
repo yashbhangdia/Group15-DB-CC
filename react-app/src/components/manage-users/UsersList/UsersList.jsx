@@ -14,14 +14,17 @@ import {
   successNoti,
 } from "../../../base/Notification/Notification";
 import { getErrorMessage } from "../../../utils/generalUtils";
+import UserDetails from "../UserDetails/UserDetails";
+import Loading from "../../../base/Loading/Loading";
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useBoolean(true);
   const [userFormPopupOpen, setUserFormPopupOpen] = useBoolean(false);
   const [isEditMode, setIsEditMode] = useBoolean(false);
-  const [userOldData, setUserOldData] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [showDeletePopup, setShowDeletePopup] = useBoolean(false);
+  const [showUserDetailsPopup, setShowUserDetailsPopup] = useBoolean(false);
 
   const getUsers = async () => {
     try {
@@ -63,54 +66,78 @@ const UsersList = () => {
           onClick={() => setUserFormPopupOpen.on()}
         />
       </div>
-      <Table hover bordered responsive className="user-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th className="text-center actions">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td className="text-center">
-                <div className="d-flex justify-content-around align-items-center">
-                  <IconButton
-                    Icon={PencilFill}
-                    onClick={() => {
-                      setIsEditMode.on();
-                      setUserOldData(user);
-                      setUserFormPopupOpen.on();
-                    }}
-                    iconProps={{ color: "#444444" }}
-                  />
-                  <IconButton
-                    Icon={TrashFill}
-                    onClick={() => {
-                      setShowDeletePopup.on();
-                    }}
-                    iconProps={{ color: colors.danger }}
-                  />
-                </div>
-              </td>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Table hover bordered responsive className="user-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th className="text-center actions">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              const openUserPopup = () => {
+                setShowUserDetailsPopup.on();
+                setUserData(user);
+              };
+              return (
+                <tr key={user.id}>
+                  <td onClick={openUserPopup} style={{ cursor: "pointer" }}>
+                    {user.name}
+                  </td>
+                  <td onClick={openUserPopup} style={{ cursor: "pointer" }}>
+                    {user.email}
+                  </td>
+                  <td onClick={openUserPopup} style={{ cursor: "pointer" }}>
+                    {user.role}
+                  </td>
+                  <td className="text-center">
+                    <div className="d-flex justify-content-around align-items-center">
+                      <IconButton
+                        Icon={PencilFill}
+                        onClick={() => {
+                          setIsEditMode.on();
+                          setUserData(user);
+                          setUserFormPopupOpen.on();
+                        }}
+                        iconProps={{ color: "#444444" }}
+                      />
+                      <IconButton
+                        Icon={TrashFill}
+                        onClick={() => {
+                          setShowDeletePopup.on();
+                        }}
+                        iconProps={{ color: colors.danger }}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      )}
+      <UserDetails
+        show={showUserDetailsPopup}
+        hide={() => {
+          setShowUserDetailsPopup.off();
+          setUserData(null);
+        }}
+        user={userData}
+      />
       <UserForm
         show={userFormPopupOpen}
         hide={() => {
           setUserFormPopupOpen.off();
           setIsEditMode.off();
-          setUserOldData.apply(null);
+          setUserData(null);
         }}
         isEditMode={isEditMode}
-        oldData={userOldData}
+        oldData={userData}
       />
       <ConfirmationPopup
         isOpen={showDeletePopup}

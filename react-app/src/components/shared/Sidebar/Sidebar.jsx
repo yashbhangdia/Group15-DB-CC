@@ -17,6 +17,7 @@ import {
   SECURITIES,
   NEW_SECURITY,
   SINGLE_SECURITY,
+  BOOKS,
 } from "../../../config/routeUrls";
 import "./sidebar.scss";
 
@@ -42,11 +43,20 @@ const Sidebar = ({ sidebarVisible, toggleSidebar }) => {
     >
       <SidebarHeader className="text-center">
         <Link to={DASHBOARD}>
-          <img src="https://www.timecamp.com/blog/wp-content/uploads/2019/03/How-does-employee-monitoring-software-work_.png" height='100rem' width='200rem'  alt="logo" className="m-auto" />
+          <img
+            src="https://www.timecamp.com/blog/wp-content/uploads/2019/03/How-does-employee-monitoring-software-work_.png"
+            height="100rem"
+            width="200rem"
+            alt="logo"
+            className="m-auto"
+          />
         </Link>
       </SidebarHeader>
       <SidebarContent>
         <Menu className="flex-fill">
+          <MenuItem active={matchPath(BOOKS, location.pathname)}>
+            <Link to={BOOKS}>Manage Books</Link>
+          </MenuItem>
           <MenuItem active={matchPath(MANAGE_USERS, location.pathname)}>
             <Link to={MANAGE_USERS}>Manage Users</Link>
           </MenuItem>

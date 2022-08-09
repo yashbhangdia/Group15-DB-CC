@@ -5,6 +5,7 @@ import {
   TRADES,
   SECURITIES,
   MANAGE_USERS,
+  BOOKS,
 } from "./config/routeUrls";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
@@ -12,6 +13,7 @@ import Auth from "./pages/Auth";
 import Trades from "./pages/Trades";
 import Securities from "./pages/Securities";
 import ManageUsers from "./pages/ManageUsers";
+import Books from "./pages/Books";
 import { RequireAuth, OnlyPublicAuth } from "./base/RequireAuth";
 import Loading from "./base/Loading/Loading";
 
@@ -64,6 +66,14 @@ function AppRoutes() {
         element={
           <RequireAuth redirectTo={AUTH}>
             <Securities />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path={`${BOOKS}/*`}
+        element={
+          <RequireAuth redirectTo={AUTH}>
+            <Books />
           </RequireAuth>
         }
       />

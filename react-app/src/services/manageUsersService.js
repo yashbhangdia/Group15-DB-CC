@@ -5,11 +5,11 @@ import { removeFalsyValuesFromObject } from "../utils/generalUtils";
 const usersURL = `/users`;
 
 export const getUsers = (filters) => {
-  // return Promise.resolve([
-  //   { id: 1, email: "few", name: "fwfcs", role: "edwqd" },
-  //   { id: 2, email: "Ffrefw", name: "opefwu", role: "edwqd" },
-  //   { id: 3, email: "qidoqi", name: "dewqufw", role: "edwqd" },
-  // ]);
+  return Promise.resolve([
+    { id: 1, email: "few", name: "fwfcs", role: "edwqd" },
+    { id: 2, email: "Ffrefw", name: "opefwu", role: "edwqd" },
+    { id: 3, email: "qidoqi", name: "dewqufw", role: "edwqd" },
+  ]);
   let cleanedFilters = removeFalsyValuesFromObject({ ...filters });
   const url = `${usersURL}?${queryString.stringify(cleanedFilters)}`;
   return Axios.get(url);
