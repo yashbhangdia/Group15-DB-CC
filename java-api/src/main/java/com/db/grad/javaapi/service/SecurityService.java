@@ -15,7 +15,7 @@ public class SecurityService {
 	
 	public List<Security> listAll(String keyword){
 		if (keyword != null) {
-            return sr.AnalyseByKeyword(keyword);
+            return sr.search(keyword);
         }
         return sr.findAll();
 	}
