@@ -1,0 +1,35 @@
+@import "../../../styles/main.scss";
+
+.trades-list {
+  .trade-table {
+    thead {
+      background-color: $primary;
+      color: white;
+    }
+    .actions {
+      width: 15%;
+    }
+  }
+}
+
+
+.modalBody {
+  ul {
+      list-style: none;
+      display: table;
+      padding:0px !important;
+    }
+    
+    li {
+      display: table-row;
+    }
+    
+    b {
+      display: table-cell;
+      padding-right: 1em;
+    }
+
+    span{
+      padding-left:1rem;
+    }
+}
