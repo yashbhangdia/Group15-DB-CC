@@ -1,2 +1,2 @@
 # Group15-DB-CC
-Coding challenge repository for group 15
+Coding challenge repository by group 15
