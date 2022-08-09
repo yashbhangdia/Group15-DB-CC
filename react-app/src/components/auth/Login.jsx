@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useBoolean } from "../../base/hooks";
+import { ADMIN, OPS_TEAM } from "../../config/enums/misc";
 import { DASHBOARD } from "../../config/routeUrls";
 import * as authService from "../../services/authService";
 import StandardButton from "../shared/forms/StandardButton/StandardButton";
@@ -11,10 +12,10 @@ const Login = () => {
 
   const [btnDisabled, setBtnDisabled] = useBoolean(false);
 
-  const login = async () => {
+  const login = async (role) => {
     try {
       setBtnDisabled.on();
-      await authService.login();
+      await authService.login(role);
       navigate(DASHBOARD);
     } catch (e) {
     } finally {
@@ -51,7 +52,7 @@ const Login = () => {
           <span></span>
         </p> */}
 
-        <div className="email-login">
+        {/* <div className="email-login">
           <label for="email">
             {" "}
             <b>Email</b>
@@ -66,14 +67,21 @@ const Login = () => {
             name="psw"
             required
           />
-        </div>
+        </div> */}
         {/* <button class="cta-btn">Log In</button> */}
 
         <StandardButton
           className="cta-btn"
           color="btn-primary"
-          onClick={login}
-          text="Login"
+          onClick={() => login(ADMIN)}
+          text="Login as Admin"
+          disabled={btnDisabled}
+        />
+        <StandardButton
+          className="cta-btn"
+          color="btn-primary"
+          onClick={() => login(OPS_TEAM)}
+          text="Login as Operations Team"
           disabled={btnDisabled}
         />
         {/* <a class="forget-pass" href="#">

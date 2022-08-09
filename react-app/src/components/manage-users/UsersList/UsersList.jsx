@@ -109,6 +109,7 @@ const UsersList = () => {
                       <IconButton
                         Icon={TrashFill}
                         onClick={() => {
+                          setUserData(user);
                           setShowDeletePopup.on();
                         }}
                         iconProps={{ color: colors.danger }}
@@ -138,16 +139,19 @@ const UsersList = () => {
         }}
         isEditMode={isEditMode}
         oldData={userData}
+        saveCB={getUsers}
       />
       <ConfirmationPopup
         isOpen={showDeletePopup}
         title="Are you sure you want to delete?"
         onConfirm={() => {
-          deleteUser();
+          deleteUser(userData?.id);
           setShowDeletePopup.off();
+          setUserData(null);
         }}
         onCancel={() => {
           setShowDeletePopup.off();
+          setUserData(null);
         }}
         danger
       />

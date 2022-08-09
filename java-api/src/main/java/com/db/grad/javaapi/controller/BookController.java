@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.db.grad.javaapi.exception.ResourceNotFoundException;
 import com.db.grad.javaapi.model.Book;
@@ -27,65 +28,64 @@ import com.db.grad.javaapi.repository.BookRepository;
 import com.db.grad.javaapi.repository.UserRepository;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1")
 public class BookController {
-	@Autowired
-	private BookRepository bookrepository;
-	
-	@Autowired
-	private UserRepository userrepository;
-	
-	@GetMapping("/books")
-	public List<Book> getAllSecurities(){
-		return bookrepository.findAll();
-	}
-	
-	@GetMapping("/books/{id}")
+    @Autowired
+    private BookRepository bookrepository;
+
+    @Autowired
+    private UserRepository userrepository;
+
+    @GetMapping("/books")
+    public List<Book> getAllSecurities() {
+        return bookrepository.findAll();
+    }
+
+    @GetMapping("/books/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable(value = "id") Long id)
-    throws ResourceNotFoundException {
+            throws ResourceNotFoundException {
         Book book = bookrepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
         return ResponseEntity.ok().body(book);
     }
-	
-	//update
-	@PutMapping("/books/{id}")
+
+    // update
+    @PutMapping("/books/{id}")
     public ResponseEntity<Book> updatedBook(@PathVariable(value = "id") Long id,
-        @Valid @RequestBody Book bookDetails) throws ResourceNotFoundException {
-    	Book getBook = bookrepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
-    	
-    	getBook.setBookName(bookDetails.getBookName());
- 
+            @Valid @RequestBody Book bookDetails) throws ResourceNotFoundException {
+        Book getBook = bookrepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
+
+        getBook.setBookName(bookDetails.getBookName());
+
         final Book updatedBook = bookrepository.save(getBook);
         return ResponseEntity.ok(updatedBook);
     }
-	
-	//add or create
-	@PostMapping("/books")
+
+    @PostMapping("/books")
     public Book createBook(@Valid @RequestBody Book book) {
         return bookrepository.saveAndFlush(book);
     }
-	
-	
-	//delete
-	@DeleteMapping("/books/{id}")
-    public Map<String, Boolean> deleteBook(@PathVariable(value = "id") Long id)
-    throws Exception {
-    	Book book = bookrepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
 
-    	bookrepository.delete(book);
-        Map<String, Boolean> response = new HashMap <>();
+    // delete
+    @DeleteMapping("/books/{id}")
+    public Map<String, Boolean> deleteBook(@PathVariable(value = "id") Long id)
+            throws Exception {
+        Book book = bookrepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found for this id :: " + id));
+
+        bookrepository.delete(book);
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
     }
-    
-	//Get the users with the associated book id
+
+    // Get the users with the associated book id
     @GetMapping("/book/users")
-    public ResponseEntity<List<User>> getUserByBookId(@Param("id") Long id) 
-    	    throws ResourceNotFoundException { 
-    	    	List<User> user = userrepository.AnalyseByBookId(id); 
-    	    	return ResponseEntity.ok().body(user); 
-   }
+    public ResponseEntity<List<User>> getUserByBookId(@Param("id") Long id)
+            throws ResourceNotFoundException {
+        List<User> user = userrepository.AnalyseByBookId(id);
+        return ResponseEntity.ok().body(user);
+    }
 }

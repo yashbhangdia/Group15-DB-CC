@@ -72,9 +72,19 @@ class StandardSelect extends Component {
   };
 
   getSelectedOption = () => {
-    for (let option of this.props.options) {
-      if (option.value === this.props.value) {
-        return option;
+    if (this.props.isMultiple) {
+      let selectedOptions = [];
+      for (let option of this.props.options) {
+        if (this.props.value.findIndex((v) => v === option.value) >= 0) {
+          selectedOptions.push(option);
+        }
+      }
+      return selectedOptions;
+    } else {
+      for (let option of this.props.options) {
+        if (option.value === this.props.value) {
+          return option;
+        }
       }
     }
     return null;
@@ -143,6 +153,7 @@ class StandardSelect extends Component {
           defaultValue={props.defaultValue}
           isClearable={props.isClearable}
           isSearchable={props.isSearchable}
+          isMulti={props.isMultiple}
           styles={customStyles}
           onBlur={this.onBlur}
           className="select-box"
@@ -164,6 +175,7 @@ StandardSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.object,
   isSearchable: PropTypes.bool,
+  isMultiple: PropTypes.bool,
   className: PropTypes.string,
   errorText: PropTypes.string,
 };
@@ -172,6 +184,7 @@ StandardSelect.defaultProps = {
   isDisabled: false,
   isClearable: false,
   isSearchable: false,
+  isMultiple: false,
 };
 
 export default StandardSelect;

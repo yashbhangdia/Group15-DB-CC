@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.db.grad.javaapi.model.BookUser;
 import com.db.grad.javaapi.model.User;
 import com.db.grad.javaapi.repository.BookUserRepository;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1")
 public class BookUserController {
 	

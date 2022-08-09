@@ -88,7 +88,7 @@ const BookList = () => {
                   setBookDetail(book);
                 }}
               >
-                {book.name}
+                {book.bookName}
               </td>
               <td className="text-center">
                 <div className="d-flex justify-content-around align-items-center">
@@ -105,6 +105,7 @@ const BookList = () => {
                     Icon={TrashFill}
                     onClick={() => {
                       setShowDeletePopup.on();
+                      setBookOldData(book);
                     }}
                     iconProps={{ color: colors.danger }}
                   />
@@ -128,16 +129,19 @@ const BookList = () => {
         }}
         isEditMode={isEditMode}
         oldData={bookOldData}
+        saveCB={getBooks}
       />
       <ConfirmationPopup
         isOpen={showDeletePopup}
         title="Are you sure you want to delete?"
         onConfirm={() => {
-          deleteBook();
+          deleteBook(bookOldData?.id);
           setShowDeletePopup.off();
+          setBookOldData(null);
         }}
         onCancel={() => {
           setShowDeletePopup.off();
+          setBookOldData(null);
         }}
         danger
       />
