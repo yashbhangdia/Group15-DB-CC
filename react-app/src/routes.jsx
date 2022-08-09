@@ -18,6 +18,8 @@ import { RequireAuth, OnlyPublicAuth } from "./base/RequireAuth";
 import Loading from "./base/Loading/Loading";
 
 import * as authService from "./services/authService.js";
+import RoleBasedRoute from "./base/RoleBasedRoute";
+import { ADMIN, OPS_TEAM } from "./config/enums/misc";
 
 function AppRoutes() {
   const [loading, setLoading] = useState(true);
@@ -49,7 +51,9 @@ function AppRoutes() {
         path={`${MANAGE_USERS}/*`}
         element={
           <RequireAuth redirectTo={AUTH}>
-            <ManageUsers />
+            <RoleBasedRoute redirectTo={DASHBOARD} rolesAllowed={[ADMIN]}>
+              <ManageUsers />
+            </RoleBasedRoute>
           </RequireAuth>
         }
       />
@@ -57,7 +61,9 @@ function AppRoutes() {
         path={`${TRADES}/*`}
         element={
           <RequireAuth redirectTo={AUTH}>
-            <Trades />
+            <RoleBasedRoute redirectTo={DASHBOARD} rolesAllowed={[OPS_TEAM]}>
+              <Trades />
+            </RoleBasedRoute>
           </RequireAuth>
         }
       />
@@ -65,7 +71,12 @@ function AppRoutes() {
         path={`${SECURITIES}/*`}
         element={
           <RequireAuth redirectTo={AUTH}>
-            <Securities />
+            <RoleBasedRoute
+              redirectTo={DASHBOARD}
+              rolesAllowed={[OPS_TEAM, ADMIN]}
+            >
+              <Securities />
+            </RoleBasedRoute>
           </RequireAuth>
         }
       />
@@ -73,7 +84,9 @@ function AppRoutes() {
         path={`${BOOKS}/*`}
         element={
           <RequireAuth redirectTo={AUTH}>
-            <Books />
+            <RoleBasedRoute redirectTo={DASHBOARD} rolesAllowed={[ADMIN]}>
+              <Books />
+            </RoleBasedRoute>
           </RequireAuth>
         }
       />

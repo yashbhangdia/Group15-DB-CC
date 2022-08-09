@@ -7,7 +7,7 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { Link, matchPath, useLocation } from "react-router-dom";
+import { Link, matchPath, useLocation, useNavigate } from "react-router-dom";
 import {
   DASHBOARD,
   MANAGE_USERS,
@@ -19,10 +19,17 @@ import {
   SINGLE_SECURITY,
   BOOKS,
 } from "../../../config/routeUrls";
+import StandardButton from "../forms/StandardButton/StandardButton";
+import * as authService from "../../../services/authService";
 import "./sidebar.scss";
+import { getCookie } from "../../../utils/cookieUtils";
+import { ADMIN, OPS_TEAM, ROLE_TOKEN } from "../../../config/enums/misc";
 
 const Sidebar = ({ sidebarVisible, toggleSidebar }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const currentRole = getCookie(ROLE_TOKEN);
+
   const SECURITY_MATCH =
     matchPath(SECURITIES, location.pathname) ??
     matchPath(NEW_SECURITY, location.pathname) ??
@@ -54,19 +61,36 @@ const Sidebar = ({ sidebarVisible, toggleSidebar }) => {
       </SidebarHeader>
       <SidebarContent>
         <Menu className="flex-fill">
-          <MenuItem active={matchPath(BOOKS, location.pathname)}>
-            <Link to={BOOKS}>Manage Books</Link>
-          </MenuItem>
-          <MenuItem active={matchPath(MANAGE_USERS, location.pathname)}>
-            <Link to={MANAGE_USERS}>Manage Users</Link>
-          </MenuItem>
-          <MenuItem active={TRADE_MATCH}>
-            <Link to={TRADES}>Trades</Link>
-          </MenuItem>
-          <MenuItem active={SECURITY_MATCH}>
-            <Link to={SECURITIES}>Securities</Link>
-          </MenuItem>
+          {[ADMIN].indexOf(currentRole) > -1 && (
+            <MenuItem active={matchPath(BOOKS, location.pathname)}>
+              <Link to={BOOKS}>Manage Books</Link>
+            </MenuItem>
+          )}
+          {[ADMIN].indexOf(currentRole) > -1 && (
+            <MenuItem active={matchPath(MANAGE_USERS, location.pathname)}>
+              <Link to={MANAGE_USERS}>Manage Users</Link>
+            </MenuItem>
+          )}
+          {[OPS_TEAM].indexOf(currentRole) > -1 && (
+            <MenuItem active={TRADE_MATCH}>
+              <Link to={TRADES}>Trades</Link>
+            </MenuItem>
+          )}
+          {[OPS_TEAM, ADMIN].indexOf(currentRole) > -1 && (
+            <MenuItem active={SECURITY_MATCH}>
+              <Link to={SECURITIES}>Securities</Link>
+            </MenuItem>
+          )}
         </Menu>
+        <StandardButton
+          text="Logout"
+          color="btn-primary"
+          style={{ borderRadius: "0px" }}
+          onClick={() => {
+            authService.logout();
+            navigate("/");
+          }}
+        />
       </SidebarContent>
     </ProSidebar>
   );
