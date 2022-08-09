@@ -9,20 +9,22 @@ import validationFunctions from "../../../utils/validationUtils";
 import "./add-user.scss";
 
 // TODO: add role field
-const AddUser = ({ show, hide, oldData, isEditMode }) => {
+const AddUser = ({ show, hide, oldData, isEditMode, saveCB }) => {
   const [showError, setShowError] = useBoolean(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [btnDisabled, setBtnDisabled] = useBoolean(false);
 
   const onCancel = () => {
     setName("");
     setEmail("");
+    setRole("");
     hide();
   };
 
   const saveUser = async () => {
-    let data = { name, email };
+    let data = { name, email, role };
     let userId = oldData?.id;
     if (!validationFunctions.checkFormValidity(data, UserValidation)) {
       setShowError.on();
@@ -35,6 +37,8 @@ const AddUser = ({ show, hide, oldData, isEditMode }) => {
       } else {
         await userService.addUser(data);
       }
+      onCancel();
+      saveCB();
     } catch (e) {
     } finally {
       setBtnDisabled.off();
@@ -45,6 +49,7 @@ const AddUser = ({ show, hide, oldData, isEditMode }) => {
     if (isEditMode) {
       setEmail(oldData.email);
       setName(oldData.name);
+      setRole(oldData.role);
     }
   }, [isEditMode, oldData]);
 
@@ -80,6 +85,17 @@ const AddUser = ({ show, hide, oldData, isEditMode }) => {
             label="Email"
             inputId="email"
             validations={UserValidation.email}
+            showError={showError}
+          />
+        </div>
+        <div className="mb-3">
+          <StandardInput
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            name="role"
+            label="Role"
+            inputId="role"
+            validations={UserValidation.role}
             showError={showError}
           />
         </div>

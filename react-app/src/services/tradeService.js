@@ -4,6 +4,7 @@ import { removeFalsyValuesFromObject } from "../utils/generalUtils";
 
 const tradeURL = `/trades`;
 
+// Pending: by issuer: "/trades/bookName?issuer=apple"
 export const getTrades = (filters) => {
   return Promise.resolve([
     {

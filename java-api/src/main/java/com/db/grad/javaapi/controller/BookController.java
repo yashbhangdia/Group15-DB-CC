@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.db.grad.javaapi.exception.ResourceNotFoundException;
 import com.db.grad.javaapi.model.Book;
@@ -21,6 +22,7 @@ import com.db.grad.javaapi.model.User;
 import com.db.grad.javaapi.repository.BookRepository;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1")
 public class BookController {
 	@Autowired
@@ -43,7 +45,7 @@ public class BookController {
         return ResponseEntity.ok(updatedBook);
     }
 	
-	@PostMapping("/book")
+	@PostMapping("/books")
     public Book createBook(@Valid @RequestBody Book book) {
         return bookrepository.saveAndFlush(book);
     }

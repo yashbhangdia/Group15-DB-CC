@@ -5,14 +5,9 @@ import { removeFalsyValuesFromObject } from "../utils/generalUtils";
 const booksURL = `/books`;
 
 export const getAllBooks = (filters) => {
-  return Promise.resolve([
-    { id: 123, name: "Amazon" },
-    { id: 45, name: "Deutsche Bank" },
-    { id: 1, name: "Samsung" },
-  ]);
   let cleanedFilters = removeFalsyValuesFromObject({ ...filters });
   const url = `${booksURL}?${queryString.stringify(cleanedFilters)}`;
-  return Axios.get(url);
+  return Axios.get(url).then((res) => res.data);
 };
 
 // TODO: change according to api
@@ -29,7 +24,7 @@ export const getAssignedBooks = (userId) => {
 
 export const addBook = (data) => {
   const url = booksURL;
-  return Axios.post(url, data);
+  return Axios.post(url, data).then((res) => res.data);
 };
 
 export const updateBook = (tradeId, data) => {
@@ -37,6 +32,7 @@ export const updateBook = (tradeId, data) => {
   return Axios.put(url, data);
 };
 
+// TODO: soft delete
 export const deleteBook = (tradeId) => {
   const url = `${booksURL}/${tradeId}`;
   return Axios.delete(url);

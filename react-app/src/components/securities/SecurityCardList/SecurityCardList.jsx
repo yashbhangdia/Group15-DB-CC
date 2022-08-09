@@ -21,7 +21,7 @@ const SecurityCardList = () => {
   const [tradeDetails, setTradeDetails] = useState([]);
 
   const getSecurities = async () => {
-    let filters = { search: debouncedSearchText, book: selectedBook };
+    let filters = { search: debouncedSearchText, issuer: selectedBook };
     try {
       setLoading.on();
       const securs = await securityService.getSecurities(filters);
@@ -48,8 +48,8 @@ const SecurityCardList = () => {
   const getTradeDetails = async (id) => {
     try {
       setLoading.on();
-      const trades = await securityService.getTrades(id);
-      setTradeDetails(trades);
+      const secur = await securityService.getSecurityById(id);
+      setTradeDetails(secur?.trades);
       setTradeDetailsPopupOpen.on();
     } catch (e) {
       errorNoti(getErrorMessage(e));

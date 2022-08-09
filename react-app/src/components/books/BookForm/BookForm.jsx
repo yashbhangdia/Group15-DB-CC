@@ -8,7 +8,7 @@ import * as bookService from "../../../services/bookService";
 import validationFunctions from "../../../utils/validationUtils";
 import "./book-form.scss";
 
-const BookForm = ({ show, hide, oldData, isEditMode }) => {
+const BookForm = ({ show, hide, oldData, isEditMode, saveCB }) => {
   const [showError, setShowError] = useBoolean(false);
   const [name, setName] = useState("");
   const [btnDisabled, setBtnDisabled] = useBoolean(false);
@@ -19,7 +19,7 @@ const BookForm = ({ show, hide, oldData, isEditMode }) => {
   };
 
   const saveBook = async () => {
-    let data = { name };
+    let data = { bookName: name };
     let bookId = oldData?.id;
     if (!validationFunctions.checkFormValidity(data, BookValidation)) {
       setShowError.on();
@@ -32,6 +32,8 @@ const BookForm = ({ show, hide, oldData, isEditMode }) => {
       } else {
         await bookService.addBook(data);
       }
+      onCancel();
+      saveCB();
     } catch (e) {
     } finally {
       setBtnDisabled.off();
@@ -40,7 +42,7 @@ const BookForm = ({ show, hide, oldData, isEditMode }) => {
 
   useEffect(() => {
     if (isEditMode) {
-      setName(oldData.name);
+      setName(oldData.bookName);
     }
   }, [isEditMode, oldData]);
 
