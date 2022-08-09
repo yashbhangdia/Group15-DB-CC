@@ -13,8 +13,8 @@ const UserDetails = ({ show, hide, user }) => {
   const getAssignedBooksOfUser = async (bookId) => {
     try {
       setLoading.on();
-      const users = await bookService.getAssignedBooks(bookId);
-      setAssignedBooks(users);
+      const books = await bookService.getAssignedBooks(bookId);
+      setAssignedBooks(books);
     } catch (e) {
       errorNoti(getErrorMessage(e));
     } finally {
@@ -37,7 +37,7 @@ const UserDetails = ({ show, hide, user }) => {
       centered
     >
       <Modal.Header>
-        <Modal.Title>Details of {user?.name}</Modal.Title>
+        <Modal.Title>Assigned Books of {user?.name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {loading ? (
@@ -58,7 +58,7 @@ const UserDetails = ({ show, hide, user }) => {
               {assignedBooks.length > 0 &&
                 assignedBooks.map((book) => (
                   <tr key={book.id}>
-                    <td>{book.name}</td>
+                    <td>{book.bookName}</td>
                   </tr>
                 ))}
             </tbody>

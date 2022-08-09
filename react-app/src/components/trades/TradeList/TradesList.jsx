@@ -27,7 +27,7 @@ const TradesList = () => {
       setLoading.on();
       const filters = {
         search: debouncedSearchText,
-        book: selectedBook,
+        issuer: selectedBook,
       };
       const trs = await tradeService.getTrades(filters);
       setTrades(trs);
@@ -53,7 +53,8 @@ const TradesList = () => {
   const getAssignedBooks = async () => {
     try {
       setLoading.on();
-      const books = await bookService.getAssignedBooks();
+      // const books = await bookService.getAssignedBooks();
+      const books = await bookService.getAllBooks();
       setAssignedBooks(books);
     } catch (e) {
       errorNoti(getErrorMessage(e));
@@ -72,7 +73,7 @@ const TradesList = () => {
         <h2>Trade List</h2>
         <StandardSelect
           options={assignedBooks.map((ab) => ({
-            label: ab.name,
+            label: ab.bookName,
             value: ab.id,
           }))}
           value={selectedBook}

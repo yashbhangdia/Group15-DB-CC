@@ -22,7 +22,12 @@
       color: $base-hint;
     }
   }
-
+  label {
+    font-size: 1rem;
+    color: $base-label;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
   .error-text {
     font-size: 0.75rem;
     color: $base-danger;

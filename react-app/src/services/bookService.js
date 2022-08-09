@@ -10,16 +10,9 @@ export const getAllBooks = (filters) => {
   return Axios.get(url).then((res) => res.data);
 };
 
-// TODO: change according to api
 export const getAssignedBooks = (userId) => {
-  const books = [
-    { id: 101, name: "Amazon" },
-    { id: 103, name: "Google" },
-    { id: 110, name: "Apple" },
-  ];
-  return Promise.resolve(books);
-  const url = `${booksURL}?${queryString.stringify({ userId })}`;
-  return Axios.get(url);
+  const url = `/user/books?${queryString.stringify({ id: userId })}`;
+  return Axios.get(url).then((res) => res.data);
 };
 
 export const addBook = (data) => {
@@ -27,23 +20,22 @@ export const addBook = (data) => {
   return Axios.post(url, data).then((res) => res.data);
 };
 
+export const assignUserToBook = (data) => {
+  return Axios.post("/bookuser", data).then((res) => res.data);
+};
+
 export const updateBook = (tradeId, data) => {
   const url = `${booksURL}/${tradeId}`;
-  return Axios.put(url, data);
+  return Axios.put(url, data).then((res) => res.data);
 };
 
 // TODO: soft delete
 export const deleteBook = (tradeId) => {
   const url = `${booksURL}/${tradeId}`;
-  return Axios.delete(url);
+  return Axios.delete(url).then((res) => res.data);
 };
 
 export const getAssignedUsersOfBook = (bookId) => {
-  return Promise.resolve([
-    { id: 1, email: "few", name: "fwfcs", role: "edwqd" },
-    { id: 2, email: "Ffrefw", name: "opefwu", role: "edwqd" },
-    { id: 3, email: "qidoqi", name: "dewqufw", role: "edwqd" },
-  ]);
-  const url = `${booksURL}/${bookId}/users`;
-  return Axios.get(url);
+  const url = `/book/users?id=${bookId}`;
+  return Axios.get(url).then((res) => res.data);
 };
