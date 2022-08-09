@@ -23,9 +23,9 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page h-100 justify-content-center align-items-center">
+    <div className="login-page h-100 d-flex justify-content-center align-items-center">
       <div className="login-card">
-        <h2 className="title"> Log In</h2>
+        <h2 className="heading"> Log In</h2>
         {/* <p class="subtitle">
           Don't have an account? <a href="#"> sign Up</a>
         </p> */}

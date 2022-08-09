@@ -20,7 +20,6 @@ const SecurityCardList = () => {
   const [tradeDetailsPopupOpen, setTradeDetailsPopupOpen] = useBoolean(false);
   const [tradeDetails, setTradeDetails] = useState([]);
 
-
   const getSecurities = async () => {
     let filters = { search: searchText };
     try {
@@ -57,7 +56,7 @@ const SecurityCardList = () => {
     } finally {
       setLoading.off();
     }
-  }
+  };
 
   useEffect(() => {
     getAssignedBooks();
@@ -72,7 +71,10 @@ const SecurityCardList = () => {
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h3 className="sub-heading">Securities</h3>
         <StandardSelect
-          options={assignedBooks}
+          options={assignedBooks.map((ab) => ({
+            label: ab.name,
+            value: ab.id,
+          }))}
           value={selectedBook}
           onChange={(e) => setSelectedBook(e?.value)}
           placeholder="Select a Book..."
@@ -81,12 +83,19 @@ const SecurityCardList = () => {
         />
       </div>
       <div className="d-flex mb-3 justify-content-between align-items-center">
-        <StandardInput value={searchText} onChange={(e) => setSearchText(e.target.value)} placeholder="Search here..." />
+        <StandardInput
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder="Search here..."
+        />
       </div>
       <Row>
         {securities.map((security) => (
           <Col xs={1} sm={2} md={3} lg={4}>
-            <Card onClick={() => getTradeDetails(security.id)} style={{ cursor: "pointer" }} >
+            <Card
+              onClick={() => getTradeDetails(security.id)}
+              style={{ cursor: "pointer" }}
+            >
               <Card.Header style={{ textTransform: "capitalize" }}>
                 {security.type}
               </Card.Header>
