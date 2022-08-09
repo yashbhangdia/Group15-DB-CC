@@ -8,6 +8,7 @@ import { getErrorMessage } from "../../../utils/generalUtils";
 import StandardSelect from "../../shared/forms/StandardSelect/StandardSelect";
 import StandardInput from "../../shared/forms/StandardInput/StandardInput";
 import "./security-card-list.scss";
+import TradeDetails from "../TradeDetails/tradeDetailsModal";
 
 const SecurityCardList = () => {
   const [securities, setSecurities] = useState([]);
@@ -16,6 +17,9 @@ const SecurityCardList = () => {
   const [searchText, setSearchText] = useState("");
   const debouncedSearchText = useDebounce(searchText, 500);
   const [loading, setLoading] = useBoolean(true);
+  const [tradeDetailsPopupOpen, setTradeDetailsPopupOpen] = useBoolean(false);
+  const [tradeDetails, setTradeDetails] = useState([]);
+
 
   const getSecurities = async () => {
     let filters = { search: searchText };
@@ -41,6 +45,19 @@ const SecurityCardList = () => {
       setLoading.off();
     }
   };
+
+  const getTradeDetails = async (id) => {
+    try {
+      setLoading.on();
+      const trades = await securityService.getTrades(id);
+      setTradeDetails(trades);
+      setTradeDetailsPopupOpen.on();
+    } catch (e) {
+      errorNoti(getErrorMessage(e));
+    } finally {
+      setLoading.off();
+    }
+  }
 
   useEffect(() => {
     getAssignedBooks();
@@ -69,7 +86,7 @@ const SecurityCardList = () => {
       <Row>
         {securities.map((security) => (
           <Col xs={1} sm={2} md={3} lg={4}>
-            <Card>
+            <Card onClick={() => getTradeDetails(security.id)} style={{ cursor: "pointer" }} >
               <Card.Header style={{ textTransform: "capitalize" }}>
                 {security.type}
               </Card.Header>
@@ -100,6 +117,14 @@ const SecurityCardList = () => {
           </Col>
         ))}
       </Row>
+      <TradeDetails
+        show={tradeDetailsPopupOpen}
+        hide={() => {
+          setTradeDetailsPopupOpen.off();
+          setTradeDetails([]);
+        }}
+        tradeData={tradeDetails}
+      />
     </div>
   );
 };
