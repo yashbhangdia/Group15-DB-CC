@@ -1,12 +1,12 @@
-import { hostNameUrl } from "../config/api";
-import axios from "axios";
+import Axios from "./apiCalls";
+import { setCookie } from "../utils/cookieUtils";
+import { ACCESS_TOKEN } from "../config/enums/misc";
 
-export const loginUser = (credentials) => {
-  //return axios.post(`${hostNameUrl}/login`, credentials);
-  return {token: '1234'};
+export const findMe = () => {
+  return Axios.get(`/me`);
 };
 
-export const logoutUser = (credentials) => {
-  //return axios.post(`${hostNameUrl}/login`, credentials);
-  return {token: '1234'};
+export const login = () => {
+  setCookie(ACCESS_TOKEN, "fakeToken");
+  return Promise.resolve();
 };
