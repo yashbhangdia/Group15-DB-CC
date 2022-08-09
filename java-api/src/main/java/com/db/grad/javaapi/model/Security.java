@@ -17,8 +17,8 @@ public class Security {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name="inis")
-	private String inis;
+	@Column(name="isin")
+	private String isin;
 	
 	@Column(name="cusip")
 	private String cusip;
@@ -45,11 +45,11 @@ public class Security {
 		
 	}
 	
-	public Security(long id, String inis, String cusip, String issuer, Date maturityDate, String coupon, String type,
+	public Security(long id, String isin, String cusip, String issuer, Date maturityDate, String coupon, String type,
 			long faceValue, String status) {
 		super();
 		this.id = id;
-		this.inis = inis;
+		this.isin = isin;
 		this.cusip = cusip;
 		this.issuer = issuer;
 		this.maturityDate = maturityDate;
@@ -64,11 +64,11 @@ public class Security {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getInis() {
-		return inis;
+	public String getIsin() {
+		return isin;
 	}
-	public void setInis(String inis) {
-		this.inis = inis;
+	public void setIsin(String isin) {
+		this.isin = isin;
 	}
 	public String getCusip() {
 		return cusip;

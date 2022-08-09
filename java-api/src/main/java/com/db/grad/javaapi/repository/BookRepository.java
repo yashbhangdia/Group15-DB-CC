@@ -9,4 +9,5 @@ import com.db.grad.javaapi.model.Book;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long>{
 
+	
 }

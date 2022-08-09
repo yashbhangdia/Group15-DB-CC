@@ -78,6 +78,12 @@ public class TradeController {
         return response;
     }
     
+    @GetMapping("/security/{id}/trades") 
+    public ResponseEntity<List<Trade>> getTradeBySecurityId(@PathVariable(value = "id") Long id) 
+    throws ResourceNotFoundException { 
+    	List<Trade> trade = traderepository.AnalyseBySecurityId(id); 
+    	return ResponseEntity.ok().body(trade); }
+    
 //    @GetMapping("/trade/search/securityid")
 //    public String AnalyseBySecurityId(@Param("value") long value, Model model) {
 //    	Trade trade = traderepository.AnalyseBySecurityId(value);

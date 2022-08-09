@@ -1,5 +1,6 @@
 package com.db.grad.javaapi.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.db.grad.javaapi.exception.ResourceNotFoundException;
@@ -57,7 +59,7 @@ public class ServiceController {
         @Valid @RequestBody Security securityDetails) throws ResourceNotFoundException {
     	Security getSecurity = securityRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Security not found for this id :: " + id));
-    	getSecurity.setInis(securityDetails.getInis());
+    	getSecurity.setIsin(securityDetails.getIsin());
     	getSecurity.setCusip(securityDetails.getCusip());
     	getSecurity.setCoupon(securityDetails.getCoupon());
     	getSecurity.setFaceValue(securityDetails.getFaceValue());
@@ -82,53 +84,61 @@ public class ServiceController {
         return response;
     }
     
-    
-    @GetMapping("/security/trades/{id}")
-    public ResponseEntity<Trade> getTradeBySecurityId(@PathVariable(value = "id") Long id)
-    throws ResourceNotFoundException {
-        Trade trade = tradeRepository.AnalyseBySecurityId(id);
-        return ResponseEntity.ok().body(trade);
+    @GetMapping("/securities/bookName")
+    public ResponseEntity<List<Security>> AnalyseByBookName(@Param("issuer") String issuer){
+    	List<Security> securities = securityRepository.AnalyseByBookName(issuer);
+    	return ResponseEntity.ok().body(securities);
     }
     
-    @GetMapping("/securities/search/alltrades")
-    public String AnalyseBySecurityId(@Param("security_id") long security_id, Model model) {
-    	
-    	List<Trade> trade = tradeRepository.findAll();
-    	
-    	for(Trade t: trade) {
-    		if(t.getId()==security_id) {
-    			return t.toString();
-    		}
-    	}
-    	
-    	Security security = securityRepository.AnalyseBySecurityId(security_id);
-    	Trade trades = tradeRepository.AnalyseBySecurityId(security_id);
-    	
-    	model.addAttribute("security", security);
-    	model.addAttribute("security_id", security_id);
-    	model.addAttribute("trade", trades);
-    	
-    	if(security == null || trades==null) {
-    		model.addAttribute("trade", null);
-    		return "security_id";
-    	}
-    	else {
-    		Trade tradeData = new Trade();
-    		
-    		tradeData.setBook(trades.getBook());
-    		tradeData.setBuy_sell(trades.getBuy_sell());
-    		tradeData.setCounterparty(trades.getCounterparty());
-    		tradeData.setId(trades.getId());
-    		tradeData.setPrice(trades.getPrice());
-    		tradeData.setQuantity(trades.getQuantity());
-    		tradeData.setSettlementDate(trades.getSettlementDate());
-    		tradeData.setStatus(trades.getStatus());
-    		tradeData.setTradeDate(trades.getTradeDate());
-    		
-    		model.addAttribute("trades", tradeData);
-    		
-    		return "security_id";
-    	}
-    	
-   }
-}
+    @GetMapping("/securities/bookNameAndISIN")
+    public ResponseEntity<List<Security>> AnalyseByBookNameINIS(@Param("issuer") String issuer, @Param("isin") String isin){
+    	List<Security> securities = securityRepository.AnalyseByBookNameINIS(issuer, isin);
+    	return ResponseEntity.ok().body(securities);
+    }
+    
+    @GetMapping("/securities/isin")
+    public ResponseEntity<List<Security>> AnalyseByINIS(@Param("isin") String isin){
+    	List<Security> securities = securityRepository.AnalyseByINIS(isin);
+    	return ResponseEntity.ok().body(securities);
+    }
+    
+	/*
+	 * @GetMapping("/security/trades/{id}") public ResponseEntity<Trade>
+	 * getTradeBySecurityId(@PathVariable(value = "id") Long id) throws
+	 * ResourceNotFoundException { Trade trade =
+	 * tradeRepository.AnalyseBySecurityId(id); return
+	 * ResponseEntity.ok().body(trade); }
+	 */
+    
+	/*
+	 * @GetMapping("/securities/search/alltrades") public String
+	 * AnalyseBySecurityId(@Param("security_id") long security_id, Model model) {
+	 * 
+	 * List<Trade> trade = tradeRepository.findAll();
+	 * 
+	 * for(Trade t: trade) { if(t.getId()==security_id) { return t.toString(); } }
+	 * 
+	 * Security security = securityRepository.AnalyseBySecurityId(security_id);
+	 * Trade trades = tradeRepository.AnalyseBySecurityId(security_id);
+	 * 
+	 * model.addAttribute("security", security); model.addAttribute("security_id",
+	 * security_id); model.addAttribute("trade", trades);
+	 * 
+	 * if(security == null || trades==null) { model.addAttribute("trade", null);
+	 * return "security_id"; } else { Trade tradeData = new Trade();
+	 * 
+	 * tradeData.setBook(trades.getBook());
+	 * tradeData.setBuy_sell(trades.getBuy_sell());
+	 * tradeData.setCounterparty(trades.getCounterparty());
+	 * tradeData.setId(trades.getId()); tradeData.setPrice(trades.getPrice());
+	 * tradeData.setQuantity(trades.getQuantity());
+	 * tradeData.setSettlementDate(trades.getSettlementDate());
+	 * tradeData.setStatus(trades.getStatus());
+	 * tradeData.setTradeDate(trades.getTradeDate());
+	 * 
+	 * model.addAttribute("trades", tradeData);
+	 * 
+	 * return "security_id"; }
+	 * 
+	 * }
+	 */}
