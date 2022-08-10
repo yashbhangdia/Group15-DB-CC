@@ -118,7 +118,7 @@ const TradesList = () => {
                   style={{ cursor: "pointer" }}
                 >
                   <td>{trade.id}</td>
-                  <td>{trade.security.inis}</td>
+                  <td>{trade.security.isin}</td>
                   <td>{trade.quantity}</td>
                   <td>{trade.price}</td>
                   <td>{trade.buy_sell}</td>
