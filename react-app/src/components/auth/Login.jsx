@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useBoolean } from "../../base/hooks";
 import { ADMIN, OPS_TEAM } from "../../config/enums/misc";
-import { DASHBOARD } from "../../config/routeUrls";
+import { BOOKS, DASHBOARD, TRADES } from "../../config/routeUrls";
 import * as authService from "../../services/authService";
 import StandardButton from "../shared/forms/StandardButton/StandardButton";
 import "./login.scss";
@@ -16,7 +16,11 @@ const Login = () => {
     try {
       setBtnDisabled.on();
       await authService.login(role);
-      navigate(DASHBOARD);
+      if (role === ADMIN) {
+        navigate(BOOKS);
+      } else if (role === OPS_TEAM) {
+        navigate(TRADES);
+      } else navigate(DASHBOARD);
     } catch (e) {
     } finally {
       setBtnDisabled.off();
