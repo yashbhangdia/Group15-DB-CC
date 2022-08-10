@@ -89,7 +89,7 @@ public class SecurityController {
     
     @GetMapping("/securities/bookName")
     public ResponseEntity<List<Security>> AnalyseByBookName(@Param("issuer") String issuer){
-    	List<Security> securities = securityRepository.AnalyseByBookName(issuer);
+    	List<Security> securities = securityRepository.findSecuritiesByBookName(issuer);
     	return ResponseEntity.ok().body(securities);
     }
     

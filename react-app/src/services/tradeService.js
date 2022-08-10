@@ -99,7 +99,7 @@ export const getTrades = (filters) => {
   //   },
   // ]);
   let cleanedFilters = removeFalsyValuesFromObject({ ...filters });
-  let url = filters.issuer ? `${tradeURL}/bookname` : tradeURL;
+  let url = cleanedFilters.issuer ? `${tradeURL}/bookname` : tradeURL;
   url = `${tradeURL}?${queryString.stringify(cleanedFilters)}`;
   return Axios.get(url).then((res) => res.data);
 };

@@ -19,6 +19,9 @@ public interface SecurityRepository extends JpaRepository<Security, Long>{
 	@Query(value="SELECT * From security s JOIN trade t ON s.id=t.security_id JOIN book b ON b.id=t.book_id WHERE b.book_name=:issuer", nativeQuery=true)
 	List<Security> AnalyseByBookName(@Param("issuer") String issuer);
 	
+	@Query(value="SELECT * From security s WHERE s.issuer=:issuer", nativeQuery=true)
+	List<Security> findSecuritiesByBookName(@Param("issuer") String issuer);
+	
 	@Query(value=("SELECT * From security s JOIN trade t ON s.id=t.security_id JOIN book b ON b.id=t.book_id WHERE b.book_name=:issuer AND s.isin=:isin"), nativeQuery=true)
 	List<Security>  AnalyseByBookNameINIS(@Param("issuer") String issuer, @Param("isin") String isin);
 

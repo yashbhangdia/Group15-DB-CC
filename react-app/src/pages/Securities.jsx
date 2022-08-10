@@ -9,11 +9,19 @@ import { useSearchParams, useLocation } from "react-router-dom";
 import qs from "query-string";
 import { getSecurities } from "../services/securityService";
 import SecurityCardList from "../components/securities/SecurityCardList/SecurityCardList";
+import { getCookie } from "../utils/cookieUtils";
+import { ADMIN, OPS_TEAM, ROLE_TOKEN } from "../config/enums/misc";
+import SecurityTable from "../components/securities/SecurityTable/SecurityTable";
 
 const Securities = () => {
+  const currentRole = getCookie(ROLE_TOKEN);
   return (
     <AppLayout>
-      <SecurityCardList />
+      {currentRole === ADMIN ? (
+        <SecurityTable />
+      ) : currentRole === OPS_TEAM ? (
+        <SecurityCardList />
+      ) : null}
     </AppLayout>
   );
 };
